@@ -1,0 +1,2 @@
+pythonw WeiBoForm.py
+cmd
