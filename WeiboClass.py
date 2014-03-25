@@ -5,14 +5,14 @@ import urllib
 import json
 import webbrowser
 
-APP_KEY = '1673559992'
-APP_SECRET = '71ac7ba608fcb5314bd3413aaed3f5e1'
+APP_KEY = ''
+APP_SECRET = ''
 CALLBACK_URL = None#'127.0.0.1'
 SOME_CODE = None
-UID_C = None #ÓÃ»§ID
-text_towrite = '' #½«»ñÈ¡µ½µÄÎ¢²©Ð´ÈëÎÄ±¾
+UID_C = None #ï¿½Ã»ï¿½ID
+text_towrite = '' #ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Î¢ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä±ï¿½
 
-ACCESS_TOKEN = '2.00zlRX5CG6FQpB56bc127b5d8bSnFE'
+ACCESS_TOKEN = ''
 TEXT_TO = None
 PIC_TO = None
 weibo_text = ''
@@ -26,7 +26,7 @@ class WeiboControl(object):
     
         self.client = APIClient(APP_KEY, APP_SECRET, CALLBACK_URL)
     
-        access_token =  ACCESS_TOKEN #r.access_token # access token£¬e.g., abc123xyz456
+        access_token =  ACCESS_TOKEN #r.access_token # access tokenï¿½ï¿½e.g., abc123xyz456
         expires_in = 3600 #r.expires_in      # token expires in
         self.client.set_access_token(access_token, expires_in)
 
@@ -39,16 +39,16 @@ class WeiboControl(object):
         global UID_C
         UID_C = client.account.get_uid.get().get('uid')
         user_info = client.users.show.get(uid=UID_C)
-        print 'ÓÃ»§ID£º'+str(UID_C)
-        print u'êÇ³Æ£º'+user_info.get('screen_name')+u'£üÀ´×Ô£º'+user_info.get('location')
+        print 'ï¿½Ã»ï¿½IDï¿½ï¿½'+str(UID_C)
+        print u'ï¿½Ç³Æ£ï¿½'+user_info.get('screen_name')+u'ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½'+user_info.get('location')
         
     def updateText(self, object):
         
-         #raw_input('Î¢²©ÎÄ×Ö£º').decode('gbk')
-        #self.PIC_TO = pic_path #raw_input('Í¼Æ¬µØÖ·£º')
+         #raw_input('Î¢ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½').decode('gbk')
+        #self.PIC_TO = pic_path #raw_input('Í¼Æ¬ï¿½ï¿½Ö·ï¿½ï¿½')
 
         if self.TEXT_TO == '':
-            return 'ÎÞÎ¢²©ÐèÒª·¢ËÍ£¬Çë¼ì²éÎÄ×Ö¿ò£¡'
+            return 'ï¿½ï¿½Î¢ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ï¿½'
             
         elif self.PIC_TO == '':
             send_text = self.client.statuses.update.post(status=self.TEXT_TO)
@@ -56,10 +56,10 @@ class WeiboControl(object):
             pic_f = open(self.PIC_TO,'rb')
             send_text = self.client.statuses.upload.post(status=self.TEXT_TO,pic=pic_f)
             pic_f.close()
-        return u'Î¢²©·¢ËÍ³É¹¦£¬·¢ËÍÊ±¼ä£º'+send_text.get('created_at')
+        return u'Î¢ï¿½ï¿½ï¿½ï¿½ï¿½Í³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º'+send_text.get('created_at')
         
     def getPic(url, pic_name):
-        """»ñÈ¡Î¢²©Í¼Æ¬£¬½«ÒÔÎ¢²©´´½¨µÄÊ±¼ä±£´æ"""
+        """ï¿½ï¿½È¡Î¢ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä±£ï¿½ï¿½"""
         urllib.urlretrieve(url,'images\%s.jpg' % pic_name)
 
     def getNewWeibo(ui,coun_t):
@@ -82,13 +82,13 @@ class WeiboControl(object):
                     pic_url_f = pic_url[0].get('thumbnail_pic').replace('thumbnail','large')
                     pic_name = strTimeToInt(create_time)
                     getPic(pic_url_f,pic_name)
-                    print 'ÕýÔÚÏÂÔØ '+create_time+' µÄÍ¼Æ¬'
+                    print 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ '+create_time+' ï¿½ï¿½Í¼Æ¬'
                 else:
                     for i in range(len(pic_url)):
                         pic_url_f = pic_url[i].get('thumbnail_pic').replace('thumbnail','large')
                         pic_name = strTimeToInt(create_time)+'_%s'%(i+1)
                         getPic(pic_url_f,pic_name)
-                        print 'ÕýÔÚÏÂÔØ '+create_time+' µÄÍ¼Æ¬'
+                        print 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ '+create_time+' ï¿½ï¿½Í¼Æ¬'
             text_towrite = text_towrite + item.get('text')+'\n'+create_time+'\n---------------------------------------------------\n\n'
         print text_towrite
 
@@ -99,14 +99,14 @@ class WeiboControl(object):
         str_f.close()
 
     def decideToGo():
-        decide = raw_input('ÇëÑ¡Ôñ²Ù×÷£ºF ·¢Î¢²©£üG »ñÈ¡Î¢²©\nÃüÁî£º')
+        decide = raw_input('ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½F ï¿½ï¿½Î¢ï¿½ï¿½ï¿½ï¿½G ï¿½ï¿½È¡Î¢ï¿½ï¿½\nï¿½ï¿½ï¿½î£º')
         if decide.lower() == 'f':
             updateText()
         elif decide.lower() == 'g':
             getNewWeibo(UID_C,5)
             writeText(text_towrite.encode('utf8'))
         else:
-            print 'ÊäÈëÓÐÎó£¬ÇëÖØÐÂÊäÈë£¡'
+            print 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¡'
             
 
 if __name__ == '__main__':
@@ -116,4 +116,4 @@ if __name__ == '__main__':
 
     #writeText(text_towrite.encode('utf8'))
     #updateText()
-    #a=raw_input('°´ÈÎÒâ¼ü·µ»Ø£¡')
+    #a=raw_input('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½')
